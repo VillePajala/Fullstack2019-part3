@@ -66,7 +66,7 @@ app.post('/api/persons', (req, res) => {
 
   if(body.name === undefined || body.number === undefined) {
     return res.status(400).json({
-      error: 'name or number missing'
+      error: 'name or number missing?'
     })
   } 
 
