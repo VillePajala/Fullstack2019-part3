@@ -75,7 +75,7 @@ app.post('/api/persons', (req, res) => {
       const allNames = persons.map(person => person.name)
       if (allNames.includes(body.name)) {
         return res.status(400).json({
-          error: 'name must be unique..'
+          error: 'name must be unique'
         })
       } 
 
