@@ -75,7 +75,7 @@ app.post('/api/persons', (req, res) => {
       const allNames = persons.map(person => person.name)
       if (allNames.includes(body.name)) {
         return res.status(400).json({
-          error: 'name must be unique..'
+          error: 'name must be unique'
         })
       } 
 
@@ -92,10 +92,15 @@ app.post('/api/persons', (req, res) => {
 })
 
 app.get('/info', (req, res) => {
-  res.send(`<div>
-              Phonebook has info for ${persons.length} people <br>
+  Person.find({})
+    .then(persons => {
+      const allNames = persons.map(person => person.name)
+      res.send(`<div>
+              Phonebook has info for ${allNames.length} people <br>
               ${new Date()}
             </div>`)
+    })
+    .catch(error => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
