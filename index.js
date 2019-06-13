@@ -48,12 +48,10 @@ app.delete('/api/persons/:id', (req, res, next) => {
 
 app.put('/api/persons/:id', (req, res, next) => {
   const body = req.body
-  console.log(body)
   const person = {
     name: body.name,
     number: body.number,
   }
-  console.log(person)
   Person.findByIdAndUpdate(req.params.id, person, { new: true})
     .then(updatedPerson => {
       res.json(updatedPerson.toJSON())
@@ -61,32 +59,32 @@ app.put('/api/persons/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
   const body = req.body
 
-  if(body.name === undefined || body.number === undefined) {
+  /* if(body.name === undefined || body.number === undefined) {
     return res.status(400).json({
       error: 'name or number missing'
     })
-  } 
+  }  */
 
-  Person.find({})
+  /* Person.find({})
     .then(persons => {
       const allNames = persons.map(person => person.name)
       if (allNames.includes(body.name)) {
         return res.status(400).json({
           error: 'name must be unique'
         })
-      } 
+      }  */
 
-      const person = new Person( {
-        name: body.name,
-        number: body.number,
-      })
-  
-      person.save().then(savedPerson => {
-        res.json(savedPerson.toJSON())
-      })
+  const person = new Person( {
+    name: body.name,
+    number: body.number,
+  })
+
+  person.save()
+    .then(savedPerson => {
+      res.json(savedPerson.toJSON())
     })
     .catch(error => next(error))
 })
