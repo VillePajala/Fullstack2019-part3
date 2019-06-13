@@ -1,13 +1,5 @@
 const mongoose = require('mongoose')
 
-if (process.argv.length<3) {
-  
-}
-
-if (!process.argv[3]) {
-  
-}
-
 const password = process.argv[2]
 const newName = process.argv[3]
 const newNumber = process.argv[4]
@@ -31,15 +23,15 @@ const person = new Person({
 if (!newName) {
   console.log('phonebook:')
   Person.find({ }).then(result => {
-    result.forEach(person =>{
+    result.forEach(person => {
       console.log(person.name, person.number)
     })
     mongoose.connection.close()
   })
 } else {
   person.save().then(response => {
-    console.log(`Added ${newName} number ${newNumber} to phonebook`);
-    mongoose.connection.close();
+    console.log(`Added ${newName} number ${newNumber} to phonebook`)
+    mongoose.connection.close()
   })
 }
 
